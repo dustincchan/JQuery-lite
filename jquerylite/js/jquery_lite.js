@@ -1,14 +1,18 @@
 (function() {
   'use strict';
   function $l(element){
-    var nodelist = document.querySelectorAll(element);
     var nodeArray = [];
-    for(var i = 0; i < nodelist.length; i++){
-      nodeArray[i] = nodelist[i];
+    if (element instanceof(HTMLElement)) {
+      nodeArray.push(element);
+    } else {
+      var nodelist = document.querySelectorAll(element);
+      for(var i = 0; i < nodelist.length; i++){
+        nodeArray[i] = nodelist[i];
+      }
     }
-    // console.log(nodeArray);
     return new DOMNodeCollection(nodeArray);
   }
+
   window.onload = function(){
     $l("li").html("I am innerHTML");
     $l("li").append("COOOOOOL");
@@ -36,8 +40,8 @@
   }
 
   DOMNodeCollection.prototype.html = function (string) {
-    if (string === "undefined") {
-      return this.HTMLElements[0].innerHTML();
+    if (typeof string === 'undefined') {
+      return this.HTMLElements[0].innerHTML;
     } else {
       this.HTMLElements.forEach(function(el){
         el.innerHTML = string;
@@ -68,7 +72,7 @@
   };
 
   DOMNodeCollection.prototype.attr = function (attributeName, value) {
-    if (value === undefined) {
+    if (typeof value === 'undefined') {
       if (typeof attributeName === "object") {
         // console.log(attributeName);
         for (var key in attributeName) {
@@ -154,5 +158,5 @@
       el.removeEventListener(eventType, callback);
     });
   };
-
+  window.$l = $l;
 }());
