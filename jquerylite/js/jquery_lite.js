@@ -13,7 +13,8 @@
     $l("li").html("I am innerHTML");
     $l("li").append("COOOOOOL");
     var kyle = $l("div");
-    $l("li").append(kyle);
+    $l("li").append(kyle.HTMLElements[0]);
+    // console.log($l("li").attr("align"));
     // $l("li").empty();
   };
 
@@ -37,11 +38,40 @@
 
   DOMNodeCollection.prototype.append = function (contents){
     if(typeof contents === "string"){
-      this.html(contents);
+      this.HTMLElements.forEach(function(el){
+        el.innerHTML += contents;
+      });
     } else if(contents instanceof DOMNodeCollection) {
-      console.log("DOM NODE COLLECTION");
+      this.HTMLElements.forEach(function(element){
+        contents.HTMLElements.forEach(function(content){
+          element.innerHTML += content.outerHTML;
+        });
+      });
     } else {
-      console.log("NETIHER");
+      this.HTMLElements.forEach(function(element){
+        element.innerHTML += contents.outerHTML;
+      });
+    }
+  };
+
+  DOMNodeCollection.prototype.attr = function (attributeName, value) {
+    if (value === "undefined") {
+      if (typeof attributeName === "object") {
+        // console.log(attributeName);
+        for (var key in attributeName) {
+           if (attributeName.hasOwnProperty(key)) {
+            this.HTMLElements.forEach(function(el){
+              el.setAttribute(key, attributeName[key]);
+            });
+          }
+        }
+      } else {
+        return this[0].getAttribute(attributeName);
+      }
+    } else { //setting attribute
+      this.HTMLElements.forEach(function(el){
+        el.setAttribute(attributeName, value);
+      });
     }
   };
 
