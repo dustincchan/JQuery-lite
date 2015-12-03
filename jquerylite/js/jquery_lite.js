@@ -14,7 +14,8 @@
     $l("li").append("COOOOOOL");
     var kyle = $l("div");
     $l("li").append(kyle.HTMLElements[0]);
-    // console.log($l("li").attr("align"));
+    $l("li").attr({"align":"right", "type":"text"});
+    $l("li").attr("class", "coooool-class");
     // $l("li").empty();
   };
 
@@ -55,7 +56,7 @@
   };
 
   DOMNodeCollection.prototype.attr = function (attributeName, value) {
-    if (value === "undefined") {
+    if (value === undefined) {
       if (typeof attributeName === "object") {
         // console.log(attributeName);
         for (var key in attributeName) {
@@ -66,7 +67,7 @@
           }
         }
       } else {
-        return this[0].getAttribute(attributeName);
+        return this.HTMLElements[0].getAttribute(attributeName);
       }
     } else { //setting attribute
       this.HTMLElements.forEach(function(el){
