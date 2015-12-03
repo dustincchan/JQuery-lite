@@ -18,9 +18,11 @@
     $l("li").attr("class", "coooool-class");
     $l("li").addClass("awesome-class");
     $l("li").removeClass("coooool-class");
-    console.log($l("ul").children());
-    console.log($l("li").parent());
+    // console.log($l("ul").children());
+    // console.log($l("li").parent());
+    console.log($l("body").find("li"));
     // $l("li").empty();
+    $l("li").remove();
   };
 
   function DOMNodeCollection (HTMLElements) {
@@ -109,12 +111,30 @@
     }
     return false;
   };
+
   DOMNodeCollection.prototype.parent = function () {
     var parents = [];
     this.HTMLElements.forEach(function(DOMNode) {
       parents.pushUnique(DOMNode.parentNode);
     });
     return new DOMNodeCollection(parents);
+  };
+
+  DOMNodeCollection.prototype.find = function (selector) {
+    var matches = [];
+    this.HTMLElements.forEach(function(el){
+      var match = [].slice.call(el.querySelectorAll(selector));
+      match.forEach(function(m){
+        matches.pushUnique(m);
+      });
+    });
+    return new DOMNodeCollection(matches);
+  };
+
+  DOMNodeCollection.prototype.remove = function () {
+    this.HTMLElements.forEach(function(el){
+      el.remove();
+    });
   };
 
 }());
