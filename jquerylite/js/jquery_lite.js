@@ -18,6 +18,8 @@
     $l("li").attr("class", "coooool-class");
     $l("li").addClass("awesome-class");
     $l("li").removeClass("coooool-class");
+    console.log($l("ul").children());
+    console.log($l("li").parent());
     // $l("li").empty();
   };
 
@@ -88,4 +90,31 @@
       el.classList.remove(removeClass);
     });
   };
+
+  DOMNodeCollection.prototype.children = function () {
+    var children = [];
+    this.HTMLElements.forEach(function(DOMNode) {
+      var kids = Array.prototype.slice.call( DOMNode.children );
+      kids.forEach(function(child){
+        children.push(child);
+      });
+    });
+    return new DOMNodeCollection(children);
+  };
+  Array.prototype.pushUnique = function (item){
+    if(this.indexOf(item) == -1) {
+    //if(jQuery.inArray(item, this) == -1) {
+        this.push(item);
+        return true;
+    }
+    return false;
+  };
+  DOMNodeCollection.prototype.parent = function () {
+    var parents = [];
+    this.HTMLElements.forEach(function(DOMNode) {
+      parents.pushUnique(DOMNode.parentNode);
+    });
+    return new DOMNodeCollection(parents);
+  };
+
 }());
