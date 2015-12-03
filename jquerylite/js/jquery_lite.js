@@ -16,6 +16,8 @@
     $l("li").append(kyle.HTMLElements[0]);
     $l("li").attr({"align":"right", "type":"text"});
     $l("li").attr("class", "coooool-class");
+    $l("li").addClass("awesome-class");
+    $l("li").removeClass("coooool-class");
     // $l("li").empty();
   };
 
@@ -75,5 +77,15 @@
       });
     }
   };
+  DOMNodeCollection.prototype.addClass = function (addClass) {
+    this.HTMLElements.forEach(function(el){
+      el.classList.add(addClass);
+    });
+  };
 
+  DOMNodeCollection.prototype.removeClass = function (removeClass) {
+    this.HTMLElements.forEach(function(el){
+      el.classList.remove(removeClass);
+    });
+  };
 }());
