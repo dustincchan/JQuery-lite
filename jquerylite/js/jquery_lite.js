@@ -22,7 +22,13 @@
     // console.log($l("li").parent());
     console.log($l("body").find("li"));
     // $l("li").empty();
-    $l("li").remove();
+    // $l("li").remove();
+    var listendur = function() {
+      console.log("section was clicked");
+    };
+    $l("section").on("click", listendur);
+
+    $l("section").off("click", listendur);
   };
 
   function DOMNodeCollection (HTMLElements) {
@@ -134,6 +140,18 @@
   DOMNodeCollection.prototype.remove = function () {
     this.HTMLElements.forEach(function(el){
       el.remove();
+    });
+  };
+
+  DOMNodeCollection.prototype.on = function (eventType, callback) {
+    this.HTMLElements.forEach(function(el){
+      el.addEventListener(eventType, callback);
+    });
+  };
+
+  DOMNodeCollection.prototype.off = function (eventType, callback) {
+    this.HTMLElements.forEach(function(el){
+      el.removeEventListener(eventType, callback);
     });
   };
 
