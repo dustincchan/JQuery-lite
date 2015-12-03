@@ -1,9 +1,12 @@
 (function() {
   'use strict';
+  var functionsQueue = [];
   function $l(element){
     var nodeArray = [];
     if (element instanceof(HTMLElement)) {
       nodeArray.push(element);
+    } else if (typeof element === "function"){
+      functionsQueue.push(element);
     } else {
       var nodelist = document.querySelectorAll(element);
       for(var i = 0; i < nodelist.length; i++){
@@ -13,27 +16,11 @@
     return new DOMNodeCollection(nodeArray);
   }
 
-  window.onload = function(){
-    $l("li").html("I am innerHTML");
-    $l("li").append("COOOOOOL");
-    var kyle = $l("div");
-    $l("li").append(kyle.HTMLElements[0]);
-    $l("li").attr({"align":"right", "type":"text"});
-    $l("li").attr("class", "coooool-class");
-    $l("li").addClass("awesome-class");
-    $l("li").removeClass("coooool-class");
-    // console.log($l("ul").children());
-    // console.log($l("li").parent());
-    console.log($l("body").find("li"));
-    // $l("li").empty();
-    // $l("li").remove();
-    var listendur = function() {
-      console.log("section was clicked");
-    };
-    $l("section").on("click", listendur);
-
-    $l("section").off("click", listendur);
-  };
+  document.addEventListener('DOMContentLoaded', function () {
+    functionsQueue.forEach(function(func){
+      func();
+    });
+  });
 
   function DOMNodeCollection (HTMLElements) {
     this.HTMLElements = HTMLElements;

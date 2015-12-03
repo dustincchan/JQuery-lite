@@ -4,6 +4,38 @@
     <meta charset="utf-8">
     <title></title>
     <script type="text/javascript" src="js/jquery_lite.js"></script>
+
+    <script type="text/javascript">
+      $l(function(){
+        $l("li").html("I am innerHTML");
+        $l("li").append("COOOOOOL");
+        console.log("First packet of functions");
+      });
+      $l(function(){
+        var kyle = $l("div");
+        $l("li").append(kyle.HTMLElements[0]);
+        $l("li").attr({"align":"right", "type":"text"});
+        $l("li").attr("class", "coooool-class");
+        $l("li").addClass("awesome-class");
+        $l("li").removeClass("coooool-class");
+        // console.log($l("ul").children());
+        // console.log($l("li").parent());
+        console.log($l("body").find("li"));
+        // $l("li").empty();
+        // $l("li").remove();
+        console.log("Second packet of functions");
+        });
+      $l(function(){
+        var listendur = function() {
+          console.log("section was clicked");
+        };
+        $l("section").on("click", listendur);
+
+        $l("section").off("click", listendur);
+        console.log("success");
+        console.log("Third packet of functions");
+      });
+    </script>
   </head>
   <body>
     <section>
