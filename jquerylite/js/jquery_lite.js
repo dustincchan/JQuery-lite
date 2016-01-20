@@ -145,5 +145,20 @@
       el.removeEventListener(eventType, callback);
     });
   };
+
+  root.$l.extend = function (base) {
+    var otherObjs = Array.prototype.slice.call(arguments, 1);
+    otherObjs.forEach(function (obj) {
+      for (var prop in obj) {
+        if (obj.hasOwnProperty(prop)) {
+          base[prop] = obj[prop];
+        }
+      }
+    });
+    return base;
+  };
+
+  
+
   window.$l = $l;
 }());
