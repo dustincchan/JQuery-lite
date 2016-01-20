@@ -158,7 +158,15 @@
     return base;
   };
 
-  
+  var toQueryString = function (obj) {
+    var result = "";
+    for (var prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        result += prop + "=" + obj[prop] + "&";
+      }
+    }
+    return result.substring(0, result.length - 1);
+  };
 
   window.$l = $l;
 }());
