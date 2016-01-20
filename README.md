@@ -1,4 +1,6 @@
-Hello!
+#jQuery Lite!
+
+##Overview
 
 This project, contained entirely in an IIFE, recreates most of the important functionality of the jQuery library. 
 
